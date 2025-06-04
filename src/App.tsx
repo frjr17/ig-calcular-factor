@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { ThemeProvider } from "./components/theme-provider";
+import { Card, CardContent, CardDescription, CardHeader } from "./components/ui/card";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="flex justify-center items-center h-screen w-full">
+        <Card className="w-full max-w-sm p-5 text-center" >
+          <CardHeader>
+            <h1 className="text-4xl font-extrabold">Calculadora de Factor</h1>
+          </CardHeader>
+          <CardDescription className="italic">
+            <span>Ingresa los datos y obtén el factor...</span>
+            <span>y tal vez tu respuesta jajajajajaj</span>
+          </CardDescription>
+          <CardContent>
+
+          </CardContent>
+        </Card>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
