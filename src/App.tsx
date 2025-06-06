@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";
-import { tiposDeFactores } from "./utils";
+import { tiposDeFactores } from "./lib/factores";
 
 
 
