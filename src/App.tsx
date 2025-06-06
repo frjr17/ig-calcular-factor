@@ -18,27 +18,24 @@ import {
   FormLabel,
   FormMessage,
 } from "./components/ui/form";
-import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./components/ui/select";
-import { fields } from "@hookform/resolvers/nope/src/__tests__/__fixtures__/data.js";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./components/ui/select";
+import { tiposDeFactores } from "./utils";
 
-const tiposDeFactores = [
-  "A dado P (A/P)",
-  "P dado A (P/A)",
-  "P dado F (P/F)",
-  "F dado P (F/P)",
-  "F dado A (F/A)",
-  "A dado F (A/F)",
-] as const;
 
-const tiposDeFactoresEnum = z.enum(tiposDeFactores);
 
 const formSchema = z.object({
   tipoDeFactor: z.string(),
   dado: z.number(),
   interes: z.number(),
-  periodos: z.number()
+  periodos: z.number(),
 });
 
 function App() {
@@ -78,36 +75,31 @@ function App() {
                 className="space-y-8"
               >
                 <FormField
-                  name='tipoDeFactor'
+                  name="tipoDeFactor"
                   render={(props) => {
-                    console.log(props)
                     return (
-                    <FormItem>
-                      <FormLabel>Tipo de Factor:</FormLabel>
-                      <FormControl>
-                        <Select>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Selecciona un factor" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              {
-                                tiposDeFactores.map(tipo=>(
+                      <FormItem>
+                        <FormLabel>Tipo de Factor:</FormLabel>
+                        <FormControl>
+                          <Select value={props.field.value}>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Selecciona un factor" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                {tiposDeFactores.map((tipo) => (
                                   <SelectItem value={tipo}>{tipo}</SelectItem>
-                                  
-                                ))
-                              }
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormDescription>
-                             
-                        This is your public display name.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    );
                   }}
                 />
                 <Button type="submit">Submit</Button>
