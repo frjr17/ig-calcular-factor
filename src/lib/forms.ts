@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
-  tipoDeFactor: z.string({
+  tipoDeFactor: z.string().min(1,{
     message: "Es necesario un tipo de factor.",
   }),
-  interes: z.number({
+  interes: z.coerce.number().min(1,{
     message: "Ingresa el porcentaje de interés.",
   }),
-  periodos: z.number({
+  periodos: z.coerce.number().min(1,{
     message: "Ingresa el número de periodos.",
   }),
-  dado: z.number(),
+  dado: z.coerce.number(),
 });
