@@ -23,8 +23,9 @@ import { noScrollbarClass } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { factorTypes, formSchema, type FormSchema } from "@/lib/forms";
 
-export default function FactorForm(props:{handleSubmit:(newData:FormSchema)=>void}) {
-
+export default function FactorForm(props: {
+  handleSubmit: (newData: FormSchema) => void;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
 
@@ -37,16 +38,17 @@ export default function FactorForm(props:{handleSubmit:(newData:FormSchema)=>voi
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    toast("You submitted the following values", {
-      description: (
-        <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-    
-    props.handleSubmit(data)
-  
+    if (process.env.NODE_ENV === "development") {
+      toast("You submitted the following values", {
+        description: (
+          <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        ),
+      });
+    }
+
+    props.handleSubmit(data);
   }
   return (
     <Form {...form}>
