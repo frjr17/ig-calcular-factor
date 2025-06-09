@@ -46,23 +46,21 @@ function App() {
           Calcula cada factor según su tipo.
         </span>
       </header>
-      <div className="flex justify-center space-x-10">
-        {false ? null : (
-          <div className="flex flex-col justify-center items-center">
-            <Card className="w-full max-w-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl">Ingresa tus datos</CardTitle>
-                <CardDescription>
-                  Si no colocas el valor dado, solo se calculara el factor.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <FactorForm handleSubmit={handleSubmit} />
-              </CardContent>
-            </Card>
-          </div>
-        )}
-        <div className="flex flex-col justify-center">
+      <div className="flex flex-col md:flex-row justify-center md:space-x-10">
+        <div className="flex flex-col justify-center items-center">
+          <Card className="w-full max-w-sm">
+            <CardHeader>
+              <CardTitle className="text-2xl">Ingresa tus datos</CardTitle>
+              <CardDescription>
+                Si no colocas el valor dado, solo se calculara el factor.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <FactorForm handleSubmit={handleSubmit} />
+            </CardContent>
+          </Card>
+        </div>
+        <div className="flex flex-col justify-center text-center md:text-left">
           <section className="my-5 space-y-3">
             <h1 className="text-3xl font-bold">Datos</h1>
             <div className="">
@@ -86,16 +84,21 @@ function App() {
             <h1 className="text-3xl font-bold">Declaración & Cálculo</h1>
             <code className="space-y-3">
               <div>
-                {data.type?.split(" ")[0]}={data.given || "X"}(
-                {data.type?.split("(")[1]?.replace(")", "")},{data.interest},
-                {data.periods}) <br />
+                {data.type?.split(" ")[0] || "P"}={data.given || "X"}(
+                {data.type?.split("(")[1]?.replace(")", "") || "P/F"},
+                {data.interest || "100%"},{data.periods || "20"}) <br />
               </div>
-              <div>
-                {data.type?.split(" ")[0]}={data.given || "X"}({factor}) <br />
-              </div>
-              <div>
-                {data.type?.split(" ")[0]}={result}
-              </div>
+              {factor ? (
+                <>
+                  <div>
+                    {data.type?.split(" ")[0]}={data.given || "X"}({factor}){" "}
+                    <br />
+                  </div>
+                  <div>
+                    {data.type?.split(" ")[0]}={result}
+                  </div>
+                </>
+              ) : null}
             </code>
           </section>
           <section className="my-5 space-y-3">
