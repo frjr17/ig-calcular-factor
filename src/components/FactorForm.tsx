@@ -1,24 +1,38 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
-import { Form,FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { tiposDeFactores } from "@/lib/factores";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { Input } from "./ui/input";
 import { noScrollbarClass } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { formSchema } from "@/lib/forms";
+import { factorTypes, formSchema, type FormSchema } from "@/lib/forms";
 
-export default function FactorForm() {
+export default function FactorForm(props:{handleSubmit:(newData:FormSchema)=>void}) {
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
 
     defaultValues: {
-      tipoDeFactor: "",
-      interes: 0,
-      periodos: 0,
-      dado: 0,
+      type: undefined,
+      interest: 0,
+      periods: 0,
+      given: 0,
     },
   });
 
@@ -30,6 +44,9 @@ export default function FactorForm() {
         </pre>
       ),
     });
+    
+    props.handleSubmit(data)
+  
   }
   return (
     <Form {...form}>
@@ -39,7 +56,7 @@ export default function FactorForm() {
       >
         <FormField
           control={form.control}
-          name="tipoDeFactor"
+          name="type"
           render={({ field }) => {
             return (
               <FormItem>
@@ -54,7 +71,7 @@ export default function FactorForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {tiposDeFactores.map((tipoDeFactor) => (
+                    {factorTypes.map((tipoDeFactor) => (
                       <SelectItem key={tipoDeFactor} value={tipoDeFactor}>
                         {tipoDeFactor}
                       </SelectItem>
@@ -69,7 +86,7 @@ export default function FactorForm() {
 
         <FormField
           control={form.control}
-          name="interes"
+          name="interest"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Interés</FormLabel>
@@ -90,7 +107,7 @@ export default function FactorForm() {
         />
         <FormField
           control={form.control}
-          name="periodos"
+          name="periods"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Periodos</FormLabel>
@@ -110,7 +127,7 @@ export default function FactorForm() {
         />
         <FormField
           control={form.control}
-          name="dado"
+          name="given"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Valor dado (Opcional)</FormLabel>
