@@ -16,6 +16,8 @@ export function factorFGivenA(interest: number, n: number) {
   return (Math.pow(1 + interest, n) - 1) / interest;
 }
 
+console.log(factorFGivenA(0.12,7))
+
 export function factorFGivenP(interest: number, n: number) {
   return Math.pow(1 + interest, n);
 }

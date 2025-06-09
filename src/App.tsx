@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import FactorForm from "./components/FactorForm";
 import { ThemeProvider } from "./components/theme-provider";
@@ -10,13 +10,33 @@ import {
   CardTitle,
 } from "./components/ui/card";
 import type { FormSchema } from "./lib/forms";
+import { functionsPerFactor } from "./lib/functions";
 
 function App() {
   const [data, setData] = useState<Partial<FormSchema>>({});
+  const [factor, setFactor] = useState<number | string>(0);
+  const [result, setResult] = useState<number | string>();
 
   const handleSubmit = (newData: FormSchema) => {
     setData(newData);
   };
+
+  useEffect(() => {
+    if (data.type) {
+      const interest = data.interest! / 100;
+      const newFactor = functionsPerFactor[data.type!](
+        interest!,
+        data.periods!
+      );
+
+      setFactor(newFactor.toFixed(4));
+      if (data.given) {
+        setResult((newFactor * data.given).toFixed(2));
+      } else {
+        setResult("Para saber el resultado final, debe saber el valor dado");
+      }
+    }
+  }, [data]);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -59,30 +79,34 @@ function App() {
             </div>
             <div className="">
               <strong>Valor Dado: </strong>
-              <span>{data.given}</span>
+              <span>{data.given || "No dado"}</span>
             </div>
           </section>
           <section className="my-5 space-y-3">
             <h1 className="text-3xl font-bold">Declaración & Cálculo</h1>
             <code className="space-y-3">
               <div>
-                P=$200,000(P/A,2%,10) <br />
+                {data.type?.split(" ")[0]}={data.given || "X"}(
+                {data.type?.split("(")[1]?.replace(")", "")},{data.interest},
+                {data.periods}) <br />
               </div>
               <div>
-                P=$200,000(0.12356) <br />
+                {data.type?.split(" ")[0]}={data.given || "X"}({factor}) <br />
               </div>
-              <div>P=Whatever...</div>
+              <div>
+                {data.type?.split(" ")[0]}={result}
+              </div>
             </code>
           </section>
           <section className="my-5 space-y-3">
             <h1 className="text-3xl font-bold">Resultados</h1>
             <div className="">
               <strong>El factor es: </strong>
-              <span>0.120349</span>
+              <span>{factor}</span>
             </div>
             <div className="">
               <strong>La respuesta según el valor dado es: </strong>
-              <span>Un número muy grande (o muy chico)</span>
+              <span>{result || "Un número muy grande (o muy chico)"}</span>
             </div>
           </section>
         </div>
