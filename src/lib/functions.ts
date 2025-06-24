@@ -30,16 +30,8 @@ export function factorAGivenG(interest: number, n: number) {
   return (1 / interest) - (n / (Math.pow(1 + interest, n) - 1));
 }
 
-export function factorGGivenA(interest: number, n: number) {
-  return interest / (1 - Math.pow(1 + interest, -n));
-}
-
 export function factorPGivenG(interest: number, n: number) {
   return ((Math.pow(1 + interest, n) - interest * n - 1) / (Math.pow(interest, 2) * Math.pow(1 + interest, n)));
-}
-
-export function factorGGivenP(interest: number, n: number) {
-  return (Math.pow(interest, 2) * Math.pow(1 + interest, n)) / (Math.pow(1 + interest, n) - interest * n - 1);
 }
 
 
@@ -55,8 +47,6 @@ export const functionsPerFactor: Record<FactorTypes,FactorFunction> = {
   "F dado A (F/A)": factorFGivenA,
   "A dado F (A/F)": factorAGivenF,
   "A dado G (A/G)": factorAGivenG,
-  "G dado A (G/A)": factorGGivenA,
   "P dado G (P/G)": factorPGivenG,
-  "G dado P (G/P)": factorGGivenP,
 };
 

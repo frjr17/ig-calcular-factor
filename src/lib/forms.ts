@@ -9,9 +9,7 @@ export const factorTypes = [
   "F dado A (F/A)",
   "A dado F (A/F)",
   "A dado G (A/G)",
-  "G dado A (G/A)",
   "P dado G (P/G)",
-  "G dado P (G/P)",
 ] as const
 
 
