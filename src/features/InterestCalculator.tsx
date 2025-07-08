@@ -1,12 +1,10 @@
+"use client";
 import InterestForm from "@/components/InterestForm";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { InterestFormSchema } from "@/lib/forms";
-import { functionsPerInterest } from "@/lib/functions";
+import {
+  functionsPerInterest,
+} from "@/lib/functions";
 import { useEffect, useState } from "react";
 
 export default function InterestCalculator() {
@@ -21,9 +19,9 @@ export default function InterestCalculator() {
     if (data.type) {
       const interest = data.interest! / 100;
       const newInterest =
-        functionsPerInterest[data.type](interest, data.periods!) *
+        (functionsPerInterest[data.type](interest, data.periods!) as number) *
         100;
-    
+
       setResult(newInterest.toFixed(5));
     }
   }, [data]);
@@ -34,7 +32,6 @@ export default function InterestCalculator() {
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Ingresa tus datos</CardTitle>
-           
           </CardHeader>
           <CardContent>
             <InterestForm handleSubmit={handleSubmit} />

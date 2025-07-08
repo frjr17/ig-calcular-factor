@@ -9,11 +9,13 @@ import {
 import type { FormSchema } from "@/lib/forms";
 import { functionsPerFactor } from "@/lib/functions";
 import { useEffect, useState } from "react";
+import { BlockMath } from "react-katex";
 
 export default function FactorCalculator() {
   const [data, setData] = useState<Partial<FormSchema>>({});
   const [factor, setFactor] = useState<number | string>(0);
   const [result, setResult] = useState<number | string>();
+  const noGivenResult = "Para saber el resultado final, debe saber el valor dado";
 
   const handleSubmit = (newData: FormSchema) => {
     setData(newData);
@@ -31,7 +33,7 @@ export default function FactorCalculator() {
       if (data.given) {
         setResult((newFactor * data.given).toFixed(2));
       } else {
-        setResult("Para saber el resultado final, debe saber el valor dado");
+        setResult(noGivenResult);
       }
     }
   }, [data]);
@@ -74,19 +76,26 @@ export default function FactorCalculator() {
           <h1 className="text-3xl font-bold">Declaración & Cálculo</h1>
           <code className="space-y-3">
             <div>
-              {data.type?.split(" ")[0] || "P"}={data.given || "X"}(
-              {data.type?.split("(")[1]?.replace(")", "") || "P/F"},
-              {data.interest || "100%"},{data.periods || "20"}) <br />
+              <BlockMath>
+                {`${data.type?.split(" ")[0] || "P"}=${data.given || "X"}(${
+                  data.type?.split("(")[1]?.replace(")", "") || "P/F"
+                },${data.interest ? data.interest + "\\%" : "100\\%"},${
+                  data.periods || "20"
+                })`}
+              </BlockMath>
             </div>
             {factor ? (
               <>
-                <div>
-                  {data.type?.split(" ")[0]}={data.given || "X"}({factor}){" "}
-                  <br />
-                </div>
-                <div>
-                  {data.type?.split(" ")[0]}={result}
-                </div>
+                <BlockMath>
+                  {`${data.type?.split(" ")[0]}=${
+                    data.given || "X"
+                  }(${factor})`}
+                </BlockMath>
+                {result !== noGivenResult && (
+                  <BlockMath>
+                    {`${data.type?.split(" ")[0]}=${result}`}
+                  </BlockMath>
+                )}
               </>
             ) : null}
           </code>

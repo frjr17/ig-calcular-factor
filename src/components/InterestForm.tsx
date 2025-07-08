@@ -26,6 +26,8 @@ import {
   interestTypes,
   type InterestFormSchema,
 } from "@/lib/forms";
+import { BlockMath } from "react-katex";
+import { equationsPerInterest } from "@/lib/functions";
 
 export default function InterestForm(props: {
   handleSubmit: (newData: InterestFormSchema) => void;
@@ -39,6 +41,8 @@ export default function InterestForm(props: {
       periods: 0,
     },
   });
+
+  const type = form.watch("type")
 
   function onSubmit(data: z.infer<typeof interestFormSchema>) {
     if (process.env.NODE_ENV === "development") {
@@ -130,6 +134,14 @@ export default function InterestForm(props: {
             </FormItem>
           )}
         />
+        {type &&(
+          <div className="">
+            Formula a utilizar:{" "}
+            <BlockMath>
+              {equationsPerInterest[type](0,0)}
+            </BlockMath>
+          </div>
+        )}
         <Button type="submit" className="w-80">
           Calcular
         </Button>

@@ -1,4 +1,5 @@
 import "./App.css";
+import 'katex/dist/katex.min.css';
 import { ThemeProvider } from "./components/theme-provider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 import FactorCalculator from "./features/FactorCalculator";
