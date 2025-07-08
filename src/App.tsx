@@ -2,6 +2,7 @@ import "./App.css";
 import { ThemeProvider } from "./components/theme-provider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 import FactorCalculator from "./features/FactorCalculator";
+import InterestCalculator from "./features/InterestCalculator";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
         <TabsContent value="factor">
           <FactorCalculator />
         </TabsContent>
-        <TabsContent value="interes">Change your password here.</TabsContent>
+        <TabsContent value="interes">
+          <InterestCalculator />
+        </TabsContent>
       </Tabs>
     </ThemeProvider>
   );
