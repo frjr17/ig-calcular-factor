@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Input } from "./ui/input";
-import { noScrollbarClass } from "@/lib/utils";
+import { cn, noScrollbarClass } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { factorTypes, formSchema } from "@/lib/forms";
 import type { TFormSchema } from "@/lib/types";
@@ -98,7 +98,7 @@ export default function FactorForm(props: {
                   placeholder="e.g. 10% ó 0.1"
                   type="number"
                   {...field}
-                  className={`${noScrollbarClass}`}
+                  className={cn(noScrollbarClass)}
                 />
               </FormControl>
               <FormDescription>
@@ -118,7 +118,7 @@ export default function FactorForm(props: {
                 <Input
                   type="number"
                   {...field}
-                  className={`${noScrollbarClass}`}
+                  className={cn(noScrollbarClass)}
                 />
               </FormControl>
               <FormDescription>
@@ -138,7 +138,7 @@ export default function FactorForm(props: {
                 <Input
                   type="number"
                   {...field}
-                  className={`${noScrollbarClass}`}
+                  className={cn(noScrollbarClass)}
                 />
               </FormControl>
               <FormDescription>Ingresa el valor dado</FormDescription>
