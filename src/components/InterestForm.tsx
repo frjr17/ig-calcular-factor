@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import type { z } from "zod";
 import {
   Form,
@@ -41,23 +40,10 @@ export default function InterestForm(props: {
 
   const type = form.watch("type");
 
-  function onSubmit(data: z.infer<typeof interestFormSchema>) {
-    if (process.env.NODE_ENV === "development") {
-      toast("You submitted the following values", {
-        description: (
-          <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      });
-    }
-
-    props.handleSubmit(data);
-  }
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(props.handleSubmit)}
         className="space-y-6 w-80 m-auto"
       >
         <FormField
