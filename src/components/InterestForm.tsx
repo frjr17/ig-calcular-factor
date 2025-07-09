@@ -66,7 +66,7 @@ export default function InterestForm(props: {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Tipo de tasa</FormLabel>
+                <FormLabel>Tipo de tasa (r,i,ia)</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -95,10 +95,10 @@ export default function InterestForm(props: {
           name="interest"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Interés</FormLabel>
+              <FormLabel>Interés (%)</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="e.g. 10% ó 0.1"
+                  placeholder="e.g. 10, 25, 100"
                   type="number"
                   {...field}
                   className={cn(noScrollbarClass)}
@@ -116,7 +116,7 @@ export default function InterestForm(props: {
           name="periods"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Periodos</FormLabel>
+              <FormLabel>Periodos (m)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -125,7 +125,7 @@ export default function InterestForm(props: {
                 />
               </FormControl>
               <FormDescription>
-                Ingresa el numero de periodos (n)
+                Ingresa el numero de periodos (m)
               </FormDescription>
               <FormMessage />
             </FormItem>

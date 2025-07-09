@@ -77,10 +77,12 @@ export default function InterestCalculator() {
           </CardContent>
         </Card>
       </div>
-      <div className="flex flex-col justify-center text-center md:text-left">
-        {data.type && <InterestGivenData data={data} />}
-        {result && <InterestResults data={data} result={result} />}
-      </div>
+      {data.type && (
+        <div className="flex flex-col justify-center text-center md:text-left">
+          <InterestGivenData data={data} />
+          {result && <InterestResults data={data} result={result} />}
+        </div>
+      )}
     </div>
   );
 }

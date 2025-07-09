@@ -63,7 +63,7 @@ export default function FactorForm(props: {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Tipo de Factor</FormLabel>
+                <FormLabel>Tipo de Factor (F/P, P/F, A/P...)</FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -92,10 +92,10 @@ export default function FactorForm(props: {
           name="interest"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Interés</FormLabel>
+              <FormLabel>Interés (%)</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="e.g. 10% ó 0.1"
+                  placeholder="e.g. 10, 25, 100"
                   type="number"
                   {...field}
                   className={cn(noScrollbarClass)}
@@ -113,7 +113,7 @@ export default function FactorForm(props: {
           name="periods"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Periodos</FormLabel>
+              <FormLabel>Periodos (n)</FormLabel>
               <FormControl>
                 <Input
                   type="number"

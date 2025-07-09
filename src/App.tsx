@@ -12,7 +12,7 @@ function App() {
         <h1 className="text-4xl font-bold">Calculadora Económica</h1>
       </header>
       <Tabs defaultValue="factor" className="w-full max-w-3xl mx-auto">
-        <TabsList>
+        <TabsList className="m-auto w-full md:w-1/2">
           <TabsTrigger value="factor">Calculadora de Factor</TabsTrigger>
           <TabsTrigger value="interes">Interés</TabsTrigger>
         </TabsList>
