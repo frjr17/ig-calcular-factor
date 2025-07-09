@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { IFormField } from "./types";
 
 export const factorTypes = [
   "A dado P (A/P)",
@@ -19,7 +20,6 @@ export const interestTypes = [
   "Tasa de Interés Efectiva via Efectiva anual (i dado ia)",
 ] as const;
 
-
 export const interestFormSchema = z.object({
   type: z.enum(interestTypes, {
     message: "Es necesario un tipo de interés.",
@@ -32,7 +32,39 @@ export const interestFormSchema = z.object({
   }),
 });
 
-export const formSchema = z.object({
+export const factorFormFields: IFormField[] = [
+  {
+    name: "type",
+    label: "Tipo de Factor",
+    placeholder: "e.g. A dado P (A/P), P dado A (P/A)...",
+    type: "select",
+    description: "Selecciona el tipo de interés que deseas calcular.",
+    options: factorTypes,
+  },
+  {
+    name: "interest",
+    label: "Interés (%)",
+    placeholder: "e.g. 10, 25, 100",
+    type: "number",
+    description: "Ingresa el porcentaje de interés.",
+  },
+  {
+    name: "periods",
+    label: "Periodos (n)",
+    placeholder: "e.g. 1, 2, 3...",
+    type: "number",
+    description: "Ingresa el número de periodos.",
+  },
+  {
+    name: "given",
+    label: "Valor dado (Opcional)",
+    placeholder: "e.g. 1000, 5000, 10000",
+    type: "number",
+    description: "Ingresa el valor dado (opcional).",
+  },
+];
+
+export const factorFormSchema = z.object({
   type: z.enum(factorTypes, {
     message: "Es necesario un tipo de factor.",
   }),
@@ -44,3 +76,4 @@ export const formSchema = z.object({
   }),
   given: z.coerce.number(),
 });
+

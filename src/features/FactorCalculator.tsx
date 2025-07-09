@@ -7,12 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { functionsPerFactor } from "@/lib/functions";
-import type { TFormSchema } from "@/lib/types";
+import type { TFormFieldsSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { BlockMath } from "react-katex";
 
 export interface TFactorGivenDataProps {
-  data: Partial<TFormSchema>;
+  data: Partial<TFormFieldsSchema>;
 }
 
 function FactorGivenData(props: TFactorGivenDataProps) {
@@ -40,7 +40,7 @@ function FactorGivenData(props: TFactorGivenDataProps) {
 }
 
 export interface TFactorDeclarationAndCalcProps {
-  data: Partial<TFormSchema>;
+  data: Partial<TFormFieldsSchema>;
   factor: number | string;
   result?: number | string;
 }
@@ -102,11 +102,11 @@ function FactorResults(props: TFactorResults) {
 }
 
 export default function FactorCalculator() {
-  const [data, setData] = useState<Partial<TFormSchema>>({});
+  const [data, setData] = useState<Partial<TFormFieldsSchema>>({});
   const [factor, setFactor] = useState<number | string>(0);
   const [result, setResult] = useState<number | string>();
 
-  const handleSubmit = (newData: TFormSchema) => {
+  const handleSubmit = (newData: TFormFieldsSchema) => {
     setData(newData);
   };
 

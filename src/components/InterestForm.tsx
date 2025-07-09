@@ -24,10 +24,10 @@ import { Button } from "./ui/button";
 import { interestFormSchema, interestTypes } from "@/lib/forms";
 import { BlockMath } from "react-katex";
 import { equationsPerInterest } from "@/lib/functions";
-import type { TInterestFormSchema } from "@/lib/types";
+import type { TInterestFormFieldsSchema } from "@/lib/types";
 
 export default function InterestForm(props: {
-  handleSubmit: (newData: TInterestFormSchema) => void;
+  handleSubmit: (newData: TInterestFormFieldsSchema) => void;
 }) {
   const form = useForm<z.infer<typeof interestFormSchema>>({
     resolver: zodResolver(interestFormSchema),

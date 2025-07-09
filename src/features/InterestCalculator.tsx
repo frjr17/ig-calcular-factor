@@ -2,11 +2,11 @@
 import InterestForm from "@/components/InterestForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { functionsPerInterest } from "@/lib/functions";
-import type { TInterestFormSchema } from "@/lib/types";
+import type { TInterestFormFieldsSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 interface IInterestGivenDataProps {
-  data: Partial<TInterestFormSchema>;
+  data: Partial<TInterestFormFieldsSchema>;
 }
 
 function InterestGivenData(props: IInterestGivenDataProps) {
@@ -30,7 +30,7 @@ function InterestGivenData(props: IInterestGivenDataProps) {
 }
 
 interface IInterestResultsProps {
-  data: Partial<TInterestFormSchema>;
+  data: Partial<TInterestFormFieldsSchema>;
   result?: number | string;
 }
 
@@ -47,10 +47,10 @@ function InterestResults(props: IInterestResultsProps) {
 }
 
 export default function InterestCalculator() {
-  const [data, setData] = useState<Partial<TInterestFormSchema>>({});
+  const [data, setData] = useState<Partial<TInterestFormFieldsSchema>>({});
   const [result, setResult] = useState<number | string>();
 
-  const handleSubmit = (newData: TInterestFormSchema) => {
+  const handleSubmit = (newData: TInterestFormFieldsSchema) => {
     setData(newData);
   };
 

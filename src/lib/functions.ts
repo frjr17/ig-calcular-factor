@@ -1,8 +1,8 @@
 import type {
   TFactorFunction,
   TInterestFunction,
-  TFactorTypes,
-  TInterestTypes,
+  TFactorTypeFieldOption,
+  TInterestTypeFieldOption,
 } from "./types";
 
 
@@ -131,7 +131,7 @@ export function nominalInterestRateFromEffectiveEquation(
   return `i = \\left(1 + ia\\right)^{\\frac{1}{m}} - 1 = \\left(1 + ${effectiveInterest}\\right)^{\\frac{1}{${m}}} - 1`;
 }
 
-export const functionsPerInterest: Record<TInterestTypes, TInterestFunction> = {
+export const functionsPerInterest: Record<TInterestTypeFieldOption, TInterestFunction> = {
   "Tasa de Interés Nominal (r)": nominalInterestRate,
   "Tasa de Interés Efectiva (i)": effectiveInterestRate,
   "Tasa de Interés Efectiva Anual (ia)": (interest: number, m: number) =>
@@ -144,7 +144,7 @@ export const functionsPerInterest: Record<TInterestTypes, TInterestFunction> = {
     nominalInterestRateFromEffective,
 };
 
-export const equationsPerInterest: Record<TInterestTypes, TInterestFunction> = {
+export const equationsPerInterest: Record<TInterestTypeFieldOption, TInterestFunction> = {
   "Tasa de Interés Nominal (r)": nominalInterestRateEquation,
   "Tasa de Interés Efectiva (i)": effectiveInterestRateEquation,
   "Tasa de Interés Efectiva Anual (ia)":
@@ -157,7 +157,7 @@ export const equationsPerInterest: Record<TInterestTypes, TInterestFunction> = {
     nominalInterestRateFromEffectiveEquation,
 };
 
-export const functionsPerFactor: Record<TFactorTypes, TFactorFunction> = {
+export const functionsPerFactor: Record<TFactorTypeFieldOption, TFactorFunction> = {
   "A dado P (A/P)": factorAGivenP,
   "P dado A (P/A)": factorPGivenA,
   "P dado F (P/F)": factorPGivenF,
