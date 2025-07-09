@@ -1,4 +1,10 @@
-import type { FactorTypes, InterestTypes } from "./forms";
+import type {
+  TFactorFunction,
+  TInterestFunction,
+  TFactorTypes,
+  TInterestTypes,
+} from "./types";
+
 
 export function factorAGivenP(interest: number, n: number) {
   return (
@@ -19,8 +25,6 @@ export function factorAGivenF(interest: number, n: number) {
 export function factorFGivenA(interest: number, n: number) {
   return (Math.pow(1 + interest, n) - 1) / interest;
 }
-
-console.log(factorFGivenA(0.12, 7));
 
 export function factorFGivenP(interest: number, n: number) {
   return Math.pow(1 + interest, n);
@@ -45,7 +49,10 @@ export function effectiveInterestRate(nominalInterest: number, m: number) {
   return nominalInterest / m;
 }
 
-export function effectiveInterestRateEquation(nominalInterest: number, m: number ) {
+export function effectiveInterestRateEquation(
+  nominalInterest: number,
+  m: number
+) {
   const draft = !m || !nominalInterest;
   const equation = `i = \\frac{r}{m}`;
   if (draft) {
@@ -58,35 +65,36 @@ export function nominalInterestRate(effectiveInterest: number, m: number) {
   return effectiveInterest * m;
 }
 
-export function nominalInterestRateEquation(effectiveInterest: number, m: number) {
+export function nominalInterestRateEquation(
+  effectiveInterest: number,
+  m: number
+) {
   const draft = !m || !effectiveInterest;
   const equation = `r = i * m`;
   if (draft) {
-    return equation
+    return equation;
   }
   return equation + ` = ${effectiveInterest} * ${m}`;
 }
 
-
-
 export function effectiveInterestRateFromNominal(
   nominalOrEffective: number,
   m: number,
-  isNominal: boolean = false,
+  isNominal: boolean = false
 ) {
   const nominalInterest = isNominal
     ? nominalOrEffective
     : nominalInterestRate(nominalOrEffective, m);
-    return Math.pow(1 + nominalInterest / m, m) - 1;
+  return Math.pow(1 + nominalInterest / m, m) - 1;
 }
 
 export function effectiveInterestRateFromNominalEquation(
   nominalOrEffective: number,
   m: number,
-  isNominal: boolean = false,
+  isNominal: boolean = false
 ) {
   const draft = !m || !nominalOrEffective;
-  let equation
+  let equation;
 
   if (isNominal) {
     equation = `ia = \\left(1 + \\frac{r}{m}\\right)^m - 1`;
@@ -98,9 +106,9 @@ export function effectiveInterestRateFromNominalEquation(
     return equation;
   }
 
-  if (isNominal){
+  if (isNominal) {
     return `${equation} = \\left(1 + \\frac{${nominalOrEffective}}{${m}}\\right)^{${m}} - 1`;
-  }else{
+  } else {
     return `${equation} = \\left(1 + ${nominalOrEffective}\\right)^{${m}} - 1`;
   }
 }
@@ -123,35 +131,33 @@ export function nominalInterestRateFromEffectiveEquation(
   return `i = \\left(1 + ia\\right)^{\\frac{1}{m}} - 1 = \\left(1 + ${effectiveInterest}\\right)^{\\frac{1}{${m}}} - 1`;
 }
 
-
-
-export type InterestFunction = (interest: number, n: number) => number | string;
-
-export const functionsPerInterest: Record<InterestTypes,InterestFunction> = {
+export const functionsPerInterest: Record<TInterestTypes, TInterestFunction> = {
   "Tasa de Interés Nominal (r)": nominalInterestRate,
   "Tasa de Interés Efectiva (i)": effectiveInterestRate,
-  "Tasa de Interés Efectiva Anual (ia)": (interest:number,m:number)=>
+  "Tasa de Interés Efectiva Anual (ia)": (interest: number, m: number) =>
     effectiveInterestRateFromNominal(interest, m, false),
-  "Tasa de Interés Efectiva Anual via Nominal (ia dado r)": (interest:number,m:number)=>
-    effectiveInterestRateFromNominal(interest, m, true),
+  "Tasa de Interés Efectiva Anual via Nominal (ia dado r)": (
+    interest: number,
+    m: number
+  ) => effectiveInterestRateFromNominal(interest, m, true),
   "Tasa de Interés Efectiva via Efectiva anual (i dado ia)":
     nominalInterestRateFromEffective,
 };
 
-export const equationsPerInterest: Record<InterestTypes, InterestFunction> = {
+export const equationsPerInterest: Record<TInterestTypes, TInterestFunction> = {
   "Tasa de Interés Nominal (r)": nominalInterestRateEquation,
   "Tasa de Interés Efectiva (i)": effectiveInterestRateEquation,
-  "Tasa de Interés Efectiva Anual (ia)": effectiveInterestRateFromNominalEquation,
-  "Tasa de Interés Efectiva Anual via Nominal (ia dado r)": (interest:number,m:number)=>effectiveInterestRateFromNominalEquation(interest,m,true),
+  "Tasa de Interés Efectiva Anual (ia)":
+    effectiveInterestRateFromNominalEquation,
+  "Tasa de Interés Efectiva Anual via Nominal (ia dado r)": (
+    interest: number,
+    m: number
+  ) => effectiveInterestRateFromNominalEquation(interest, m, true),
   "Tasa de Interés Efectiva via Efectiva anual (i dado ia)":
     nominalInterestRateFromEffectiveEquation,
 };
 
-
-export type FactorFunction = (interest: number, n: number) => number;
-
-
-export const functionsPerFactor: Record<FactorTypes, FactorFunction> = {
+export const functionsPerFactor: Record<TFactorTypes, TFactorFunction> = {
   "A dado P (A/P)": factorAGivenP,
   "P dado A (P/A)": factorPGivenA,
   "P dado F (P/F)": factorPGivenF,

@@ -6,18 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { FormSchema } from "@/lib/forms";
 import { functionsPerFactor } from "@/lib/functions";
+import type { TFormSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { BlockMath } from "react-katex";
 
 export default function FactorCalculator() {
-  const [data, setData] = useState<Partial<FormSchema>>({});
+  const [data, setData] = useState<Partial<TFormSchema>>({});
   const [factor, setFactor] = useState<number | string>(0);
   const [result, setResult] = useState<number | string>();
   const noGivenResult = "Para saber el resultado final, debe saber el valor dado";
 
-  const handleSubmit = (newData: FormSchema) => {
+  const handleSubmit = (newData: TFormSchema) => {
     setData(newData);
   };
 

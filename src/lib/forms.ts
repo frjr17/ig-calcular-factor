@@ -19,20 +19,6 @@ export const interestTypes = [
   "Tasa de Interés Efectiva via Efectiva anual (i dado ia)",
 ] as const;
 
-export type FactorTypes = (typeof factorTypes)[number];
-export type InterestTypes = (typeof interestTypes)[number];
-export type FormSchema = {
-  type: FactorTypes;
-  interest: number;
-  periods: number;
-  given?: number;
-};
-
-export type InterestFormSchema = {
-  type: InterestTypes;
-  interest: number;
-  periods: number;
-};
 
 export const interestFormSchema = z.object({
   type: z.enum(interestTypes, {

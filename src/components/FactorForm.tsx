@@ -21,10 +21,11 @@ import {
 import { Input } from "./ui/input";
 import { noScrollbarClass } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { factorTypes, formSchema, type FormSchema } from "@/lib/forms";
+import { factorTypes, formSchema } from "@/lib/forms";
+import type { TFormSchema } from "@/lib/types";
 
 export default function FactorForm(props: {
-  handleSubmit: (newData: FormSchema) => void;
+  handleSubmit: (newData: TFormSchema) => void;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

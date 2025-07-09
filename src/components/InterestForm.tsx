@@ -19,18 +19,15 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Input } from "./ui/input";
-import { noScrollbarClass } from "@/lib/utils";
+import { cn, noScrollbarClass } from "@/lib/utils";
 import { Button } from "./ui/button";
-import {
-  interestFormSchema,
-  interestTypes,
-  type InterestFormSchema,
-} from "@/lib/forms";
+import { interestFormSchema, interestTypes } from "@/lib/forms";
 import { BlockMath } from "react-katex";
 import { equationsPerInterest } from "@/lib/functions";
+import type { TInterestFormSchema } from "@/lib/types";
 
 export default function InterestForm(props: {
-  handleSubmit: (newData: InterestFormSchema) => void;
+  handleSubmit: (newData: TInterestFormSchema) => void;
 }) {
   const form = useForm<z.infer<typeof interestFormSchema>>({
     resolver: zodResolver(interestFormSchema),
@@ -42,7 +39,7 @@ export default function InterestForm(props: {
     },
   });
 
-  const type = form.watch("type")
+  const type = form.watch("type");
 
   function onSubmit(data: z.infer<typeof interestFormSchema>) {
     if (process.env.NODE_ENV === "development") {
@@ -104,7 +101,7 @@ export default function InterestForm(props: {
                   placeholder="e.g. 10% ó 0.1"
                   type="number"
                   {...field}
-                  className={`${noScrollbarClass}`}
+                  className={cn(noScrollbarClass)}
                 />
               </FormControl>
               <FormDescription>
@@ -124,7 +121,7 @@ export default function InterestForm(props: {
                 <Input
                   type="number"
                   {...field}
-                  className={`${noScrollbarClass}`}
+                  className={cn(noScrollbarClass)}
                 />
               </FormControl>
               <FormDescription>
@@ -134,12 +131,10 @@ export default function InterestForm(props: {
             </FormItem>
           )}
         />
-        {type &&(
+        {type && (
           <div className="">
             Formula a utilizar:{" "}
-            <BlockMath>
-              {equationsPerInterest[type](0,0)}
-            </BlockMath>
+            <BlockMath>{equationsPerInterest[type](0, 0)}</BlockMath>
           </div>
         )}
         <Button type="submit" className="w-80">
