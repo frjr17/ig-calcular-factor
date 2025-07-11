@@ -1,14 +1,13 @@
 import type { z } from "zod";
 import type {
   factorFormSchema,
-  factorTypes,
   interestFormSchema,
-  interestTypes,
 } from "./forms";
 import type { UseFormReturn } from "react-hook-form";
+import type { factors, interests } from "./constants";
 
-export type TFactorTypeFieldOption = (typeof factorTypes)[number];
-export type TInterestTypeFieldOption = (typeof interestTypes)[number];
+export type TFactorTypeFieldOption = (typeof factors)[number];
+export type TInterestTypeFieldOption = (typeof interests)[number];
 
 export type TFactorFunction = (i: number, n: number) => number;
 export type TInterestFunction = (i: number, n: number) => number | string;
@@ -47,3 +46,13 @@ export interface IFormField {
 export type TFormTypeFieldType =
   | keyof typeof factorFormSchema._type
   | keyof typeof interestFormSchema._type;
+
+export type TFunctionsPerInterestType = Record<
+  TInterestTypeFieldOption,
+  TInterestFunction
+>;
+
+export type TFunctionsPerFactorType = Record<
+  TFactorTypeFieldOption,
+  TFactorFunction
+>

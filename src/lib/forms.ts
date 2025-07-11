@@ -1,27 +1,11 @@
 import { z } from "zod";
 import type { IFormField } from "./types";
+import { factors, interests } from "./constants";
 
-export const factorTypes = [
-  "A dado P (A/P)",
-  "P dado A (P/A)",
-  "P dado F (P/F)",
-  "F dado P (F/P)",
-  "F dado A (F/A)",
-  "A dado F (A/F)",
-  "A dado G (A/G)",
-  "P dado G (P/G)",
-] as const;
 
-export const interestTypes = [
-  "Tasa de Interés Nominal (r)",
-  "Tasa de Interés Efectiva (i)",
-  "Tasa de Interés Efectiva Anual (ia)",
-  "Tasa de Interés Efectiva Anual via Nominal (ia dado r)",
-  "Tasa de Interés Efectiva via Efectiva anual (i dado ia)",
-] as const;
 
 export const interestFormSchema = z.object({
-  type: z.enum(interestTypes, {
+  type: z.enum(interests, {
     message: "Es necesario un tipo de interés.",
   }),
   interest: z.coerce.number().min(0, {
@@ -39,7 +23,7 @@ export const interestFormFields: IFormField[] = [
     placeholder: "e.g. Tasa de Interés Nominal (r)",
     type: "select",
     description: "Selecciona el tipo de interés que deseas calcular.",
-    options: interestTypes,
+    options: interests,
   },
   {
     name: "interest",
@@ -58,7 +42,7 @@ export const interestFormFields: IFormField[] = [
 ];
 
 export const factorFormSchema = z.object({
-  type: z.enum(factorTypes, {
+  type: z.enum(factors, {
     message: "Es necesario un tipo de factor.",
   }),
   interest: z.coerce.number().min(1, {
@@ -77,7 +61,7 @@ export const factorFormFields: IFormField[] = [
     placeholder: "e.g. A dado P (A/P), P dado A (P/A)...",
     type: "select",
     description: "Selecciona el tipo de interés que deseas calcular.",
-    options: factorTypes,
+    options: factors,
   },
   {
     name: "interest",
