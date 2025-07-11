@@ -1,29 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-import { Input } from "./ui/input";
-import { cn, noScrollbarClass } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { interestFormSchema, interestTypes } from "@/lib/forms";
+import { interestFormFields, interestFormSchema } from "@/lib/forms";
 import { BlockMath } from "react-katex";
 import { equationsPerInterest } from "@/lib/functions";
-import type { TInterestFormFieldsSchema } from "@/lib/types";
+import type { TInterestFormFieldsSchema, TUseFormType } from "@/lib/types";
+import { Form } from "./ui/form";
+import DynamicFormField from "./DynamicFormField";
 
 export default function InterestForm(props: {
   handleSubmit: (newData: TInterestFormFieldsSchema) => void;
@@ -46,77 +30,14 @@ export default function InterestForm(props: {
         onSubmit={form.handleSubmit(props.handleSubmit)}
         className="space-y-6 w-80 m-auto"
       >
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Tipo de tasa (r,i,ia)</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-80">
-                      <SelectValue placeholder="Elige un tipo de tasa" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {interestTypes.map((tipoDeFactor) => (
-                      <SelectItem key={tipoDeFactor} value={tipoDeFactor}>
-                        {tipoDeFactor}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
+        {interestFormFields.map((formField) => (
+          <DynamicFormField
+            key={formField.name}
+            field={formField}
+            form={form as TUseFormType} // TypeScript workaround for dynamic form
+          />
+        ))}
 
-        <FormField
-          control={form.control}
-          name="interest"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Interés (%)</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="e.g. 10, 25, 100"
-                  type="number"
-                  {...field}
-                  className={cn(noScrollbarClass)}
-                />
-              </FormControl>
-              <FormDescription>
-                Ingresa el porcentaje de interés.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="periods"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Periodos (m)</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  {...field}
-                  className={cn(noScrollbarClass)}
-                />
-              </FormControl>
-              <FormDescription>
-                Ingresa el numero de periodos (m)
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         {type && (
           <div className="">
             Formula a utilizar:{" "}

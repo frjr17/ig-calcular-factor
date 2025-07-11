@@ -26,8 +26,8 @@ export type TInterestFormFieldsSchema = {
   periods: number;
 };
 
-export type TFactorFormSchema = z.infer<typeof factorFormSchema>;
 export type TInterestFormSchema = z.infer<typeof interestFormSchema>;
+export type TFactorFormSchema = z.infer<typeof factorFormSchema>;
 
 export type TFormType = TFactorFormSchema | TInterestFormSchema;
 

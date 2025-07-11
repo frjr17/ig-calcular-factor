@@ -32,6 +32,44 @@ export const interestFormSchema = z.object({
   }),
 });
 
+export const interestFormFields: IFormField[] = [
+  {
+    name: "type",
+    label: "Tipo de Interés",
+    placeholder: "e.g. Tasa de Interés Nominal (r)",
+    type: "select",
+    description: "Selecciona el tipo de interés que deseas calcular.",
+    options: interestTypes,
+  },
+  {
+    name: "interest",
+    label: "Interés (%)",
+    placeholder: "e.g. 10, 25, 100",
+    type: "number",
+    description: "Ingresa el porcentaje de interés.",
+  },
+  {
+    name: "periods",
+    label: "Periodos (m)",
+    placeholder: "e.g. 1, 2, 3...",
+    type: "number",
+    description: "Ingresa el número de periodos.",
+  },
+];
+
+export const factorFormSchema = z.object({
+  type: z.enum(factorTypes, {
+    message: "Es necesario un tipo de factor.",
+  }),
+  interest: z.coerce.number().min(1, {
+    message: "Ingresa el porcentaje de interés.",
+  }),
+  periods: z.coerce.number().min(1, {
+    message: "Ingresa el número de periodos.",
+  }),
+  given: z.coerce.number(),
+});
+
 export const factorFormFields: IFormField[] = [
   {
     name: "type",
@@ -63,17 +101,3 @@ export const factorFormFields: IFormField[] = [
     description: "Ingresa el valor dado (opcional).",
   },
 ];
-
-export const factorFormSchema = z.object({
-  type: z.enum(factorTypes, {
-    message: "Es necesario un tipo de factor.",
-  }),
-  interest: z.coerce.number().min(1, {
-    message: "Ingresa el porcentaje de interés.",
-  }),
-  periods: z.coerce.number().min(1, {
-    message: "Ingresa el número de periodos.",
-  }),
-  given: z.coerce.number(),
-});
-

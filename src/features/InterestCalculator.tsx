@@ -1,9 +1,10 @@
 "use client";
 import InterestForm from "@/components/InterestForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { functionsPerInterest } from "@/lib/functions";
+import { equationsPerInterest, functionsPerInterest } from "@/lib/functions";
 import type { TInterestFormFieldsSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
+import { BlockMath } from "react-katex";
 
 interface IInterestGivenDataProps {
   data: Partial<TInterestFormFieldsSchema>;
@@ -29,6 +30,31 @@ function InterestGivenData(props: IInterestGivenDataProps) {
   );
 }
 
+interface IInterestDeclarationAndCalcProps {
+  data: Partial<TInterestFormFieldsSchema>;
+  result?: number | string;
+}
+
+function InterestDeclarationAndCalc(props: IInterestDeclarationAndCalcProps) {
+  const { interest, periods, type } = props.data;
+
+  const declaration =
+    equationsPerInterest[type!](interest! / 100, periods!) +
+    " = " +
+    props.result;
+
+  return (
+    <section className="my-5 space-y-3">
+      <h1 className="text-3xl font-bold">Declaración & Cálculo</h1>
+      <code className="space-y-3">
+        <div>
+          <BlockMath>{declaration}</BlockMath>
+        </div>
+      </code>
+    </section>
+  );
+}
+
 interface IInterestResultsProps {
   data: Partial<TInterestFormFieldsSchema>;
   result?: number | string;
@@ -39,7 +65,7 @@ function InterestResults(props: IInterestResultsProps) {
     <section className="my-5 space-y-3">
       <h1 className="text-3xl font-bold">Resultados</h1>
       <div className="">
-        <strong>La respuesta para {props.data.type} es: </strong>
+        <strong>La {props.data.type} es: </strong>
         <span>{props.result}%</span>
       </div>
     </section>
@@ -57,6 +83,7 @@ export default function InterestCalculator() {
   useEffect(() => {
     if (data.type) {
       const interest = data.interest! / 100;
+
       const newInterest =
         (functionsPerInterest[data.type](interest, data.periods!) as number) *
         100;
@@ -80,6 +107,7 @@ export default function InterestCalculator() {
       {data.type && (
         <div className="flex flex-col justify-center text-center md:text-left">
           <InterestGivenData data={data} />
+          <InterestDeclarationAndCalc data={data} result={result} />
           {result && <InterestResults data={data} result={result} />}
         </div>
       )}
