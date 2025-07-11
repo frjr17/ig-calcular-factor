@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { factorGivenDataFields } from "@/lib/constants";
 import { functionsPerFactor } from "@/lib/functions";
 import type { TFormFieldsSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
@@ -19,22 +20,12 @@ function FactorGivenData(props: TFactorGivenDataProps) {
   return (
     <section className="my-5 space-y-3">
       <h1 className="text-3xl font-bold">Datos</h1>
-      <div className="">
-        <strong>Tipo de Factor: </strong>
-        <span>{props.data.type}</span>
-      </div>
-      <div className="">
-        <strong>Interés: </strong>
-        <span>{props.data.interest}%</span>
-      </div>
-      <div className="">
-        <strong>Periodos: </strong>
-        <span>{props.data.periods} periodos</span>
-      </div>
-      <div className="">
-        <strong>Valor Dado: </strong>
-        <span>{props.data.given || "No dado"}</span>
-      </div>
+      {factorGivenDataFields.map((field) => (
+        <div key={field.key}>
+          <strong>{field.label}: </strong>
+          <span>{props.data[field.key] || "No dado"}</span>
+        </div>
+      ))}
     </section>
   );
 }
@@ -80,12 +71,12 @@ function FactorDeclarationAndCalc(props: TFactorDeclarationAndCalcProps) {
   );
 }
 
-interface TFactorResults {
+interface TFactorResultsProps {
   factor: number | string;
   result?: number | string;
 }
 
-function FactorResults(props: TFactorResults) {
+function FactorResults(props: TFactorResultsProps) {
   return (
     <section className="my-5 space-y-3">
       <h1 className="text-3xl font-bold">Resultados</h1>
@@ -113,6 +104,7 @@ export default function FactorCalculator() {
   useEffect(() => {
     if (data.type) {
       const interest = data.interest! / 100;
+
       const newFactor = functionsPerFactor[data.type!](
         interest!,
         data.periods!

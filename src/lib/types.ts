@@ -1,8 +1,5 @@
 import type { z } from "zod";
-import type {
-  factorFormSchema,
-  interestFormSchema,
-} from "./forms";
+import type { factorFormSchema, interestFormSchema } from "./forms";
 import type { UseFormReturn } from "react-hook-form";
 import type { factors, interests } from "./constants";
 
@@ -53,6 +50,17 @@ export type TFunctionsPerInterestType = Record<
 >;
 
 export type TFunctionsPerFactorType = Record<
-  TFactorTypeFieldOption,
+TFactorTypeFieldOption,
   TFactorFunction
->
+>;
+
+export interface IFactorGivenDataFields {
+  label: string;
+  key: keyof TFormFieldsSchema; // It can be any key from TFormFieldsSchema. But cannot declare as TFactorTypeFieldOption because of z.infer
+}
+
+
+export interface IInterestGivenDataFields {
+  label: string;
+  key: keyof TInterestFormFieldsSchema;
+}

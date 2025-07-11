@@ -1,6 +1,7 @@
 "use client";
 import InterestForm from "@/components/InterestForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { interestGivenDataFields } from "@/lib/constants";
 import { equationsPerInterest, functionsPerInterest } from "@/lib/functions";
 import type { TInterestFormFieldsSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
@@ -10,22 +11,17 @@ interface IInterestGivenDataProps {
   data: Partial<TInterestFormFieldsSchema>;
 }
 
+
 function InterestGivenData(props: IInterestGivenDataProps) {
   return (
     <section className="my-5 space-y-3">
       <h1 className="text-3xl font-bold">Datos</h1>
-      <div className="">
-        <strong>Tipo de Interés: </strong>
-        <span>{props.data.type}</span>
-      </div>
-      <div className="">
-        <strong>Interés: </strong>
-        <span>{props.data.interest}%</span>
-      </div>
-      <div className="">
-        <strong>Periodos: </strong>
-        <span>{props.data.periods} periodos</span>
-      </div>
+      {interestGivenDataFields.map((field) => (
+        <div key={field.key}>
+          <strong>{field.label}: </strong>
+          <span>{props.data[field.key] || "No dado"}</span>
+        </div>
+      ))}
     </section>
   );
 }
