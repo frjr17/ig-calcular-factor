@@ -34,15 +34,14 @@ export default function InterestForm(props: {
           <DynamicFormField
             key={formField.name}
             field={formField}
-            form={form as TUseFormType} // TypeScript workaround for dynamic form
+            form={form as TUseFormType}
           />
         ))}
-
         {type && (
-          <div className="">
-            Formula a utilizar:{" "}
+          <>
+            Formula a utilizar: 
             <BlockMath>{equationsPerInterest[type](0, 0)}</BlockMath>
-          </div>
+          </>
         )}
         <Button type="submit" className="w-80">
           Calcular
