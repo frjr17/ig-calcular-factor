@@ -1,54 +1,77 @@
-# React + TypeScript + Vite
+# Calculadora Económica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta es una aplicación web desarrollada con **React**, **TypeScript** y **Vite** que permite calcular distintos tipos de factores financieros e intereses de manera sencilla. El proyecto está pensado para estudios de ingeniería económica y cálculos básicos relacionados con tasas de interés y factores de equivalencia.
 
-Currently, two official plugins are available:
+## Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** y **Vite 6** para el desarrollo de la interfaz.
+- **TypeScript 5** para tipado estático.
+- **Tailwind CSS 4** para los estilos.
+- **Radix UI** y **react-hook-form** para formularios accesibles.
+- **Zod** para validaciones.
+- Automatización y despliegue en **GitHub Pages** mediante **GitHub Actions**.
 
-## Expanding the ESLint configuration
+## Características principales
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Calculadora de factores**: calcula valores de factores económicos comunes (A/P, P/A, P/F, etc.) a partir del interés y número de periodos.
+- **Calculadora de interés**: determina diferentes tipos de interés (nominal, efectivo, anual, etc.) en función de los datos proporcionados.
+- Interfaz reactiva construida con componentes reutilizables y formularios dinámicos.
+- Estilos basados en [Tailwind CSS](https://tailwindcss.com/).
+- Despliegue automático a GitHub Pages mediante GitHub Actions.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Requisitos
+
+- [Node.js](https://nodejs.org/) 18 o superior
+- [npm](https://www.npmjs.com/) (se instala junto con Node)
+
+## Instalación
+
+Clona este repositorio y descarga las dependencias:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Ejecución en desarrollo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Inicia el servidor de desarrollo con recarga en caliente:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+Por defecto Vite abre la aplicación en `http://localhost:5173`.
+
+## Construcción y preview
+
+Para generar la versión de producción ejecuta:
+
+```bash
+npm run build
+```
+
+Y para probar el resultado final localmente:
+
+```bash
+npm run preview
+```
+
+Los archivos estáticos se generan en la carpeta `dist/`.
+
+## Estructura del proyecto
+
+- `src/` – código fuente de la aplicación.
+  - `components/` – componentes reutilizables y campos de formulario.
+  - `features/` – vistas principales como las calculadoras de factores e intereses.
+  - `lib/` – utilidades, constantes y esquemas de validación.
+- `public/` – archivos estáticos y el icono de la aplicación.
+- Archivos de configuración: `vite.config.ts`, `tsconfig*.json`, `package.json`, `eslint.config.js`.
+
+## Despliegue
+
+El proyecto incluye un flujo de trabajo de GitHub Actions que construye la aplicación y la publica automáticamente en GitHub Pages cada vez que se hace push a la rama `master`.
+
+## Licencia
+
+Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo `LICENSE` para más información.
+
