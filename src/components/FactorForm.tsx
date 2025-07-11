@@ -33,7 +33,11 @@ export default function FactorForm(props: IFactorFormProps) {
         className="space-y-6 w-80 m-auto"
       >
         {factorFormFields.map((formField) => (
-          <DynamicFormField field={formField} form={form as TUseFormType} />
+          <DynamicFormField
+            key={formField.name}
+            field={formField}
+            form={form as TUseFormType}
+          />
         ))}
         <Button type="submit" className="w-80">
           Calcular
